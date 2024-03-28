@@ -1,0 +1,8 @@
+CREATE DATABASE troupe_musicale;
+
+CREATE TABLE musiciens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    type VARCHAR(50) NOT NULL
+);

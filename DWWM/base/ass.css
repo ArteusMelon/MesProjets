@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+.input{
+display: flex;
+justify-content: center;
+background-color: red;
+width: 50%;
+}
