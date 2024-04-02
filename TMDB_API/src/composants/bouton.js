@@ -1,5 +1,5 @@
 import {useSelector, useDispatch} from 'react-redux';
-import { pagePrev, pageSuiv, resetPage } from '../action';
+import { pagePrev, pageSuiv } from '../action';
 
 function Bouton(){
     const dispatch = useDispatch();
@@ -8,9 +8,9 @@ function Bouton(){
 
     return(
     <div>
-        <button onClick={()=> dispatch(pagePrev)}>Page précédente</button>
+        <button onClick={()=> dispatch(pagePrev())}>Page précédente</button>
         {page} sur {totalPage}
-        <button onClick={() => dispatch(pageSuiv)}>Page suivante</button>
+        <button onClick={() => dispatch(pageSuiv())}>Page suivante</button>
     </div>    
     )
 }

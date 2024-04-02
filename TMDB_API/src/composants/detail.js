@@ -1,29 +1,34 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import {Card} from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Card } from 'react-bootstrap';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFilmDetails } from '../action'; // Assure-toi d'importer fetchFilmDetails
 
+function Detail() {
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-function Detail(){
+  useEffect(() => {
+    dispatch(fetchFilmDetails(id)); // Ajoute id comme dépendance
+  }, [id, dispatch]); // Ajoute dispatch comme dépendance
 
-    const movie = useSelector((state)=>state.reducer.film)
-    const {id} = useParams();
-    const film = movie.find((movies)=>movies.id==id)
+  const film = useSelector((state) => state.reducer.filmDetail);
+  console.log(film);
 
-
-    return(
-        <>
-            <Card>
-          
-        {film&&<img
-          style={{ width: "35rem" }}
-          src={`https://image.tmdb.org/t/p/w500${film.poster_path}`}
-        />}
-      
-        </Card>
-
-        </>
-    )
+  return (
+    <div>
+      <Card>
+        {film && (
+          <img
+            style={{ width: "35rem" }}
+            src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+            alt={film.title}
+          />
+        )}
+      </Card>
+    </div>
+  );
 }
 
 export default Detail;

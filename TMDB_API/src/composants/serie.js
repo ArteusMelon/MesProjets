@@ -1,14 +1,12 @@
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Bouton
- from './bouton';
-function Film({results}){
+import Bouton from './bouton';
+function Serie({results}){
   const navigate = useNavigate();
 
 function handleClick(item){
-  navigate(`/detail/${item.id}`)
+  navigate(`/detailSerie/${item.id}`)
 }
 
 return (
@@ -26,5 +24,4 @@ return (
   </>
 );
 }
-
-export default Film;
+export default Serie;
