@@ -17,7 +17,7 @@ function handleClickSerie(item){
 }
 
 return (
-    <div className='d-flex flex-column align-items-center'>
+    <div className='d-flex flex-column align-items-center mt-4'>
     <h1>Films tendances</h1>
     <Carousel className='d-flex flex-wrap justify-content-center' interval={null}>
   {films.map((film, index) => (

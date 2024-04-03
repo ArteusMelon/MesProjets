@@ -43,13 +43,10 @@ function App() {
   };
 
   const handleHome = () => {
-    if (!recherche) {
+    
       dispatch(fetchPopfilms(1));
       dispatch(rechercheTv(1));
-    } else {
-      dispatch(rechercheFilmsModal(recherche, 1));
-      dispatch(recherchesTvModal(recherche, 1));
-    }
+    
   };
 
   const handleSearchFilm = () => {

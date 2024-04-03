@@ -51,7 +51,7 @@ export const fetchPopfilms = (page) => {
       `https://api.themoviedb.org/3/trending/movie/day?api_key=${api_key}&page=${page}`
     );
     dispatch({
-      type: fetchPopfilm,
+      type: 'fetchPopfilm',
       payload: { page, film: reponse.data.results, totalPage: reponse.data.total_pages  },
     });
   };

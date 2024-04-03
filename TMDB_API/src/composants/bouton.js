@@ -7,10 +7,10 @@ function Bouton(){
     const page = useSelector((state)=>state.reducer.page);
 
     return(
-    <div>
-        <button onClick={()=> dispatch(pagePrev())}>Page précédente</button>
+    <div className="d-flex justify-content-center align-items-center gap-4 mb-4 mt-5">
+        <button className='btn btn-primary' onClick={()=> dispatch(pagePrev())}>Page précédente</button>
         {page} sur {totalPage}
-        <button onClick={() => dispatch(pageSuiv())}>Page suivante</button>
+        <button className='btn btn-primary' onClick={() => dispatch(pageSuiv())}>Page suivante</button>
     </div>    
     )
 }

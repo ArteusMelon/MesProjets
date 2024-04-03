@@ -17,17 +17,21 @@ function Detail() {
   console.log(film);
 
   return (
-    <div>
-      <Card>
-        {film && (
-          <img
-            style={{ width: "35rem" }}
-            src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
-            alt={film.title}
-          />
-        )}
-      </Card>
+    <div className='d-flex justify-content-center align-items-center w-100 h-auto ' style={{height:'35rem'}}>
+<Card className='bg-secondary text-white w-50 mx-auto my-4 pe-5 ps-5 pt-3 pb-5 rounded border-5'>
+  {film && (
+    <div className='d-flex flex-column align-items-center'>
+      <h1 className='mb-3'>{film.title}</h1>
+      <img
+        className='mb-3 img-fluid rounded border border-dark '
+        src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+        alt={film.title}
+      />
+      <p className='text-center fs-5 '>{film.overview}</p>
     </div>
+  )}
+</Card>
+</div>
   );
 }
 

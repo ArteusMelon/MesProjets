@@ -76,22 +76,24 @@ function handleClickSerie(item){
        
       </div>
     </nav>
-    <Modal dialogClassName="" show={showModal} onHide={() => setShowModal(false)}>
+    <Modal dialogClassName="modal-fullscreen" show={showModal} onHide={() => setShowModal(false)}>
+   
     <Modal.Header closeButton className="flex-grow-1 mx-3 d-flex flex-column">
-          <input
+          <input 
             type="text"
-            className="form-control"
+            className="form-control w-50"
             value={recherche}
             placeholder="Recherche..."
             onChange={(event)=>{dispatch(rechercheFilmsModal(event.target.value, page));
               dispatch(recherchesTvModal(event.target.value, page));} }
            
           />
-      <Modal.Title>Résultats de la recherche pour "{recherche}"</Modal.Title>
+      <Modal.Title className="mt-4">Résultats de la recherche pour "{recherche}"</Modal.Title>
     </Modal.Header>
-    <Modal.Body className="d-flex flex-wrap">
+    <Modal.Body className="d-flex flex-wrap justify-content-center">
     {results2.map((item) => (
-      <Card key={item.id} onClick={() =>item.media_type === "movie" ?  handleClickFilm(item) : handleClickSerie(item)}>
+      <Card className="m-3" key={item.id} onClick={() =>{item.media_type === "movie" ?  handleClickFilm(item) : handleClickSerie(item);
+      setShowModal(false)}}>
         <img className="img-fluid"
           style={{ width: "15rem" }}
           src={item.poster_path ? `https://image.tmdb.org/t/p/w1280/${item.poster_path}`:''}
@@ -101,10 +103,11 @@ function handleClickSerie(item){
     ))}
     </Modal.Body>
     <Modal.Footer>
-      <button variant="secondary" onClick={() => setShowModal(false)}>
+      <button className="btn btn-primary" variant="secondary" onClick={() => setShowModal(false)}>
         Fermer
       </button>
     </Modal.Footer>
+   
   </Modal>
   </>
   );

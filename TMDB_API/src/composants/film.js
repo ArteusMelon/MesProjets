@@ -12,17 +12,20 @@ function handleClick(item){
 }
 
 return (
-  <>
+ <>
+  <div className='d-flex flex-wrap justify-content-center mt-4'>
     {results.map((item) => (
-      <Card key={item.id} onClick={() => handleClick(item)}>
-        <img
-          style={{ width: "35rem" }}
+      <Card className='m-3' key={item.id} onClick={() => handleClick(item)}>
+        <img className='img-fluid'
+          style={{ width: "20rem" }}
           src={`https://image.tmdb.org/t/p/w1280/${item.poster_path}`}
           alt={item.title}
         />
       </Card>
     ))}
-    <Bouton />
+    
+  </div>
+  <Bouton />
   </>
 );
 }
