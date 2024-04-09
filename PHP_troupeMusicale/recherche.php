@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['type']) && isset($_GET['
     header("Location: index.php?type=$type&nom=$nom");
     exit;
 }else {
-    header("Location: index.php");
+    header("Location: affichage.php");
     exit;
 }
 ?>

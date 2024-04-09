@@ -2,7 +2,7 @@
 include "coBd.php";
 var_dump($_FILES);
  $sizeMax=400000;
- $extensions=['png','jepg',];
+ $extensions=['png','jepg','jpg'];
 
 if (isset($_POST['nom']) && isset($_POST['age']) && isset($_POST['type'])) {
     $nom = $_POST['nom'];
@@ -20,10 +20,12 @@ if (isset($_POST['nom']) && isset($_POST['age']) && isset($_POST['type'])) {
 $database = new Database();
 if (isset($nom) && isset($age) && isset($types)) {
     $database->insertRow($nom, $age, $types);
-    header("Location:affichage.php");
+    
     if(in_array($extension,$extensions)&&$size<=$sizeMax){
-    $addImg =  move_uploaded_file($tpm,'../image'.$name);
-    var_dump($addImg);
-
+    $addImg =  move_uploaded_file($tpm,'../image/'.$name);
+    
     }
+
+    header("Location:affichage.php");
+
 }

@@ -16,6 +16,16 @@ class Database
         $this->connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    public function recherche($type, $nom){
+        $query = "SELECT * FROM troupemusicale WHERE type LIKE :type AND nom LIKE :nom";
+        $stmt = $this->conn->prepare($query);
+        $type = '%' . $type . '%';
+        $nom = '%' . $nom . '%'; 
+        $stmt->bindParam(':type', $type);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function insertRow($nom, $age, $type)
     {
         try {

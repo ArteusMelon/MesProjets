@@ -4,7 +4,7 @@ let type = document.getElementsByClassName('type');
 let btn = document.getElementsByClassName('btn');
 let form = document.getElementsByClassName('form');
 let btnV = document.getElementsByClassName('btnV');
-
+let recherche = document.getElementById('search');
 
 for (let i = 0; i < btn.length; i++) {
     btn[i].addEventListener('click', () => {
