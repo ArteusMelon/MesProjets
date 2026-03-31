@@ -1,0 +1,23 @@
+meta {
+  name: Create user
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:9090/api/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "premierTest",
+    "firstname": "test",
+    "nickname": "deuxieme",
+    "sex": "male",
+    "email": "test2@email.com",
+    "password": "password123"
+  }
+  
+}

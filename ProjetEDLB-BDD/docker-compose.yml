@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PSSWRD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '5532:5432'
+    volumes:
+      - ${POSTGRES_SCRIPTS_DIR}:/docker-entrypoint-initdb.d
+      #- ${POSTGRES_PERSISTENCE}:/var/lib/postgresql/data
+  dbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: cloudbeaver
+    ports:
+      - "8081:8978"
+    #volumes: #A décommenté en cas de besoin de persistance
+      #- ${DBEAVER_PERSISTENCE}:/opt/cloudbeaver/workspace
+    #environment:
+      #a mettre a jour
+    restart: unless-stopped # relance automatiquement le conteneur si necessaire
+
+  #Creation du docker de MongoDB
+  mongodb:
+    image: mongo:latest #Dernière version
+    container_name: mongodb #Nom du docker
+    restart: always #Si il plante le relance
+    ports: #Port : "local:virtuel"
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER_ROOT_NAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_USER_ROOT_PASSWRD}
+    volumes:
+      #- ${MONGODB_PERSISTENCE}:/data/db  # Volume pour persister les données à décommenter quand besoin est
+      - ${MONGODB_SCRIPTS_DIR}:/docker-entrypoint-initdb.d # Script d'initialisation de la mongo
+  #Visualisateur de la BDD Mongo
+  mongo-express:
+    image: mongo-express
+    depends_on: #Attends que la mongodb soit lancé pour lancer le serveur (evite les erreurs)
+      - mongodb
+    container_name: mongo_express
+    restart: always
+    ports:
+      - "8085:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USER_ROOT_NAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_USER_ROOT_PASSWRD}
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWRD}
+      ME_CONFIG_MONGODB_SERVER: mongodb #Nom du service (docker avec la quel discuter)

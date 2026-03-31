@@ -1,0 +1,9 @@
+[submodule "ProjetEDLB-Front"]
+	path = ProjetEDLB-Front
+	url = git@github.com:Etoile-du-loup-blanc/ProjetEDLB-Front.git
+[submodule "ProjetEDLB-Back"]
+	path = ProjetEDLB-Back
+	url = git@github.com:Etoile-du-loup-blanc/ProjetEDLB-Back.git
+[submodule "ProjetEDLB-BDD"]
+	path = ProjetEDLB-BDD
+	url = git@github.com:Etoile-du-loup-blanc/ProjetEDLB-BDD.git

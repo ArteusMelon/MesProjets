@@ -1,0 +1,81 @@
+## Penser à changers les informations indiquées avec les chevrons (les TODO vous indiquerons où)
+include:
+  - ./ProjetEDLB-BDD/docker-compose.yml
+services:
+  # TODO
+  edlb-front:
+    build :
+      context : ./ProjetEDLB-Front
+      
+    # Ci-dessous la redirection du port à décommenter pour les tests en local
+    ports:
+      - "7070:8080"
+
+    # links permet d'indiquer que les conteneurs peuvent communiquer sur un réseau interne au moteur Docker
+    # ici, le conteneur du "front" doit pouvoir échanger avec le conteneur du "back"
+    links:
+      - edlb-back
+    
+  edlb-back:
+    build :
+      context : ./ProjetEDLB-Back
+    # Ci-dessous la redirection du port à décommenter pour les tests en local
+    ports:
+      - "8000:9090"
+    depends_on:
+      - mongodb
+      - postgres
+    # "depends_on" permet d'indiquer que le conteneur api doit attendre le lancement du conteneur "PostgreSQL" avant de démarrer
+    # depends_on:
+      # - EDLB-BDD
+      # PostgreSQL:
+      #   condition: service_healthy
+    environment:
+      - MONGO_DB_HOST=${MONGO_DB_HOST}
+      - MONGODB_PORT=${MONGODB_PORT}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_USR=${MONGODB_USR}
+      - MONGODB_PSSWRD=${MONGODB_PSSWRD}
+      - MONGODB_AUTH=${MONGODB_AUTH}
+
+      # Variables JWT
+      - JWT_KEY=${JWT_KEY}
+      - JWT_TIME=${JWT_TIME}
+
+      # Variables PostgreSQL (si utilisé avec Spring Boot)
+      - SPRING_SOURCE=${SPRING_SOURCE}
+      - SPRING_USR=${SPRING_USR}
+      - SPRING_PSSWRD=${SPRING_PSSWRD}
+      - SPRING_DRIVER=${SPRING_DRIVER}
+      - SPRING_PLATFORM=${SPRING_PLATFORM}
+      - SPRING_DB_PLATFORM=${SPRING_DB_PLATFORM}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=${SPRING_JPA_HIBERNATE_DDL_AUTO}
+      
+      #logs SQL
+      - SPRING_SHOW_SQL=${SPRING_SHOW_SQL}
+      - SPRING_FORMAT_SQL=${SPRING_FORMAT_SQL}
+      - SPRING_OUTPUT=${SPRING_OUTPUT}
+
+      #Oauth2 resource server
+      - OAUTH=${OAUTH}
+
+# # Configurations OAuth2 Resource Server avec JWT
+# OAUTH=https://idp.example.com/issuer
+  # Le service suivant correspond au "reverse proxy"
+  # -> le serveur HTTP de type "nginx" agit comme un reverse proxy
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "8080:80"
+      - "443:443" # exposition du port 443 (sécurisé)
+    volumes:
+      # ajout du fichier de configuration du nginx pour en faire un "reverse proxy"
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      # ajout du chemin vers les certificats
+      - ./nginx:/etc/nginx/conf.d/ 
+    depends_on:
+      - edlb-front
+      - edlb-back
+      - mongodb
+      - postgres

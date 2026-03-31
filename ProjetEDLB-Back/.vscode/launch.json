@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "EdlbApplication",
+      "request": "launch",
+      "mainClass": "com.example.EDLB.EdlbApplication",
+      "projectName": "EDLB",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Spring Boot App",
+      "mainClass": "com.example.EDLB.EdlbApplication",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

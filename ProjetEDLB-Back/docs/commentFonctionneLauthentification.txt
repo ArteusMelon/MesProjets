@@ -1,0 +1,31 @@
+Comment fonctionne l'authentification avec JWT ?
+🛠️ Les étapes du processus
+🔹 1. L’utilisateur s’authentifie
+
+Il envoie email + mot de passe à l’API.
+🔹 2. Vérification des identifiants
+
+Spring Security vérifie les credentials avec la base de données.
+Si OK → Un token JWT est généré.
+🔹 3. L’API retourne le token
+
+Le token court est stocké côté client.
+Le token long est stocké en base.
+🔹 4. L’utilisateur envoie le token à chaque requête
+
+Le token court est mis dans le header Authorization: Bearer <token>.
+🔹 5. Vérification du token par l’API
+
+Spring Security valide le token.
+Si OK → Il laisse passer la requête.
+Si KO → Il rejette la requête.
+🔹 6. Gestion des tokens actifs et révocation
+
+Si l’utilisateur se déconnecte → Le token long est supprimé de la base.
+Si un token est compromis → Il peut être révoqué individuellement.
+
+Points clés à retenir
+✔️ Le client envoie ses credentials → L’API retourne un JWT
+✔️ Le JWT est ensuite utilisé dans chaque requête pour s’authentifier
+✔️ L’API vérifie le token avant d’exécuter une requête sécurisée
+✔️ Une gestion fine des tokens permet de sécuriser l’application

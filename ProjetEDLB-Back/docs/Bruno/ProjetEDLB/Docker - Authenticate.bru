@@ -1,0 +1,18 @@
+meta {
+  name: Docker - Authenticate
+  type: http
+  seq: 10
+}
+
+post {
+  url: https://localhost/api/auth/authenticate
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "test2@email.com",
+    "password": "password123"
+  }
+}

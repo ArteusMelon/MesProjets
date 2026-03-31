@@ -1,0 +1,15 @@
+meta {
+  name: GetUser Spring Secu
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:9090/api/users
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGVtYWlsLmNvbSIsImlhdCI6MTc0MTA4MTgxNiwiZXhwIjoxNzQxMDg1NDE2fQ.mgQvaW9Ia2Sn9B9Ge15DawrIAobJ4X9lgyiSqbLNnFw
+}
